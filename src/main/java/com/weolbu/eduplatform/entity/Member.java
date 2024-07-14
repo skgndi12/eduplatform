@@ -33,7 +33,3 @@ public class Member {
     @Column(nullable = false)
     private MemberType meberType;
 }
-
-enum MemberType {
-    STUDENT, INSTRUCTOR
-}
