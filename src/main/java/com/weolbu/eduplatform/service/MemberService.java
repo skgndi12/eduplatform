@@ -2,7 +2,10 @@ package com.weolbu.eduplatform.service;
 
 import org.springframework.stereotype.Service;
 
+import com.weolbu.eduplatform.dto.MemberRequestDto;
+import com.weolbu.eduplatform.dto.MemberResponseDto;
 import com.weolbu.eduplatform.entity.Member;
+import com.weolbu.eduplatform.exception.CustomException;
 import com.weolbu.eduplatform.repository.MemberRepository;
 
 import jakarta.transaction.Transactional;
@@ -17,21 +20,26 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public Member registerMember(Member member) {
-        validatePassword(member.getPassword());
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
-        return memberRepository.save(member);
-    }
-
-    private void validatePassword(String password) {
-        if (password.length() < 6 || password.length() > 10) {
-            throw new IllegalArgumentException("Password must be between 6 and 10");
+    public MemberResponseDto registerMember(MemberRequestDto request) {
+        if (memberRepository.findByEmail(request.getEmail()) != null) {
+            throw new CustomException("Email already exists");
         }
 
-        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z0-9]).+$")) {
-            throw new IllegalArgumentException(
-                    "Password must contain at least one lowercase letter and one uppercase letter or number");
-        }
+        Member member = Member.builder().name(request.getName()).email(request.getEmail())
+                .phoneNumber(request.getPhoneNumber()).password(passwordEncoder.encode(request.getPassword()))
+                .meberType(request.getMemberType()).build();
+
+        Member savedMember = memberRepository.save(member);
+        return convertToResponseDto(savedMember);
     }
 
+    private MemberResponseDto convertToResponseDto(Member member) {
+        MemberResponseDto response = new MemberResponseDto();
+        response.setId(member.getId());
+        response.setName(member.getName());
+        response.setEmail(member.getEmail());
+        response.setPhoneNumber(member.getPhoneNumber());
+        response.setMemberType(member.getMeberType());
+        return response;
+    }
 }
