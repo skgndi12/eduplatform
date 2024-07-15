@@ -1,10 +1,11 @@
 package com.weolbu.eduplatform.repository;
 
-import com.weolbu.eduplatform.entity.Lecture;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import com.weolbu.eduplatform.entity.Lecture;
 
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
     @Query("SELECT l FROM Lecture l LEFT JOIN l.enrollments e GROUP BY l ORDER BY COUNT(e) DESC")

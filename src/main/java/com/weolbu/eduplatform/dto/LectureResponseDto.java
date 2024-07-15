@@ -1,7 +1,8 @@
 package com.weolbu.eduplatform.dto;
 
-import lombok.Data;
 import java.math.BigDecimal;
+
+import lombok.Data;
 
 @Data
 public class LectureResponseDto {

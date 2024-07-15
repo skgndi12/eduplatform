@@ -1,5 +1,6 @@
 package com.weolbu.eduplatform.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.weolbu.eduplatform.dto.MemberRequestDto;
@@ -10,7 +11,6 @@ import com.weolbu.eduplatform.repository.MemberRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 @RequiredArgsConstructor

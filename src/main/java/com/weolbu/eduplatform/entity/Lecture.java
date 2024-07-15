@@ -1,13 +1,13 @@
 package com.weolbu.eduplatform.entity;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.persistence.*;
-import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Data

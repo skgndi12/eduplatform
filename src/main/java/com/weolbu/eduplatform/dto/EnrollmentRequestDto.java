@@ -1,7 +1,7 @@
 package com.weolbu.eduplatform.dto;
 
-import lombok.Data;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 @Data
 public class EnrollmentRequestDto {
